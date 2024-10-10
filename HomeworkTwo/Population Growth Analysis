@@ -1,0 +1,34 @@
+%Author Name: Eric Ciccarelli
+%Email: ciccar47@rowan.edu
+%Course: MATLAB Programming - Fall 2024
+%Assignment: Population Growth Analysis
+%Date October 11th, 2024
+
+%a) Create a row vector 'population'
+population = [5000, 5200, 5350, 5600, 5800];
+%Note- I listed all of the given values in a row vector
+
+
+%b) Calculate the year-over-year growth rate
+growth_rate = NaN(1, length(population)); 
+for i = 2:length(population)
+    growth_rate(i) = (population(i) - population(i-1)) / population(i-1) * 100; 
+end 
+%Note- I ininitalized the growth_rate vector with NaN
+
+
+%c) Create a 2x5 matrix pop_data
+population_data = [population; growth_rate]; 
+%Note- I combined population and growth rates
+
+
+%d) Print the formatted table
+for year = 1:length(population)
+    if year == 1
+        fprintf('%d\t%d\t\tN/A\n', year, population(year));
+    else
+        fprintf('%d\t%d\t\t%.2f\n', year, population(year), growth_rate(year));
+    end
+end
+% Note- Print the first year's data with "N/A" for growth rate, then the
+% second-fifth years data with their growth rates

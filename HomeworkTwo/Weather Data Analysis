@@ -1,0 +1,46 @@
+%Author Name: Eric Ciccarelli
+%Email: ciccar47@rowan.edu
+%Course: MATLAB Programming - Fall 2024
+%Assignment: Weather Data Analysis
+%Date October 11th, 2024
+
+%a) Create a file named 'weather_data.txt' with the following structure
+
+fileID = fopen('weather_data.txt', 'w');
+
+fprintf(fileID, 'Date,Temperature,Humidity,Precipitation\n');
+fprintf(fileID, '2024-09-01,25.5,60,0\n');
+fprintf(fileID, '2024-09-02,26.0,65,5\n');
+fprintf(fileID, '2024-09-03,24.5,70,10\n');
+fprintf(fileID, '2024-09-04,23.0,75,15\n');
+fprintf(fileID, '2024-09-05,22.5,80,20\n');
+
+%Note- I closed the file
+fclose(fileID);
+
+%b) Writing the script that does next four steps
+
+%Note- Reads the data from 'weather_data.txt' into a cell array
+data = readcell('weather_data.txt'); 
+
+%Note- This extracts numerical data into separate vectors
+temp = cell2mat(data(2:end, 2)); % Temperature values
+humidity = cell2mat(data(2:end, 3)); % Humidity values
+precipitation = cell2mat(data(2:end, 4)); % Precipitation values
+
+%Note- I calculated average temperature and humidity, and total precipitation
+average_temp = mean(temp);
+average_humidity = mean(humidity);
+total_precipitation = sum(precipitation);
+
+%Note- I created a summary string
+summary = sprintf('Average Temperature: %.2f\nAverage Humidity: %.2f\nTotal Precipitation: %.2f\n', ...
+                  average_temp, average_humidity, total_precipitation);
+
+%Save these statistics to 'weather_summary.txt'
+fileID = fopen('weather_summary.txt', 'w');
+fprintf(fileID, '%s', summary);
+fclose(fileID);
+
+%Display a message indicating completion
+disp('Weather summary has been saved to weather_summary.txt');

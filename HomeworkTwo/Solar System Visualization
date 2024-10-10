@@ -1,0 +1,46 @@
+%Author Name: Eric Ciccarelli
+%Email: ciccar47@rowan.edu
+%Course: MATLAB Programming - Fall 2024
+%Assignment: Solar System Visualization 
+%Date October 11th, 2024
+
+%a)  Create two vectors 'planet_distances' and 'planet_sizes'
+planet_distances = [0.39, 0.72, 1.00, 1.52, 5.20, 9.58, 19.20, 30.07];  
+% Note- This is the AU for Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune
+planet_sizes = [0.38, 0.95, 1.00, 0.53, 11.21, 9.45, 4.01, 3.88]; % Relative sizes (Earth = 1)
+
+%Note- I defined planet names for labeling
+planet_names = {'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'};
+
+% b) Create the figure with two subplots
+figure;
+
+%Note- I made the first subplot: Scatter plot of planet distances vs. planet sizes
+subplot(2, 1, 1); %Note- I made 2 rows, 1 column, on the first plot
+scatter(planet_distances, planet_sizes * 10, 100 * planet_sizes, 'filled'); 
+title('Planet Distances vs. Sizes');
+xlabel('Distance from Sun (AU)');
+ylabel('Relative Size (Earth = 1)');
+xlim([0 35]); 
+ylim([0 12]); 
+grid on;
+set(gca, 'XTick', planet_distances); 
+set(gca, 'XTickLabel', planet_names); 
+legend(planet_names, 'Location', 'northwest'); 
+%Note- I created all aspects that will be featured on my scatter plot
+
+% Second subplot: Bar chart of planet distances
+subplot(2, 1, 2); % 2 rows, 1 column, second plot
+bar(planet_distances, 'FaceColor', [0 0.5 0.8]);
+title('Average Distances of Planets from the Sun');
+xlabel('Planets');
+ylabel('Distance from Sun (AU)');
+set(gca, 'XTickLabel', planet_names);
+grid on;
+%Note- I created all aspects that will be featured on my bar graph
+
+%c) Save the figure as an image file
+saveas(gcf, 'solar_system_visualization.png');
+
+%d) Display message indicating the figure was saved
+disp('Solar system visualization saved as solar_system_visualization.png');

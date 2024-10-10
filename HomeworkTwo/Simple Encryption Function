@@ -1,0 +1,44 @@
+%Author Name: Eric Ciccarelli
+%Email: ciccar47@rowan.edu
+%Course: MATLAB Programming - Fall 2024
+%Assignment: Simple Encryption Function
+%Date October 11th, 2024
+
+%a) Create a function named `caesar_cipher` that takes two inputs
+
+function encrypted_message = caesar_cipher(message, shift)
+    %Note- This function encrypts a message using the Caesar cipher.
+    
+    %Note- Start with an empty string for the encrypted message
+    encrypted_message = '';
+    
+    %Note- Loop through each character in the message
+    for i = 1:length(message)
+        %Note- Get the current character
+        current_character = message(i);
+        
+        %Note- Find the new character after shifting
+        new_character = char(mod(double(current_character) - double('a') + shift, 26) + double('a'));
+        
+        %Note- Add the new character to the encrypted message
+        encrypted_message = [encrypted_message, new_character];
+    end
+end
+
+%b)What to do in the main script.
+
+%Note- Ask the user for a message
+message = input('Enter a message (only lowercase letters): ', 's');
+shift = input('Enter a shift value (1-25): ');
+
+%Note- Check if the shift value is valid
+if shift < 1 || shift > 25
+    disp('Error: Shift must be between 1 and 25.');
+else
+    %Note- Call the caesar_cipher function to encrypt the message
+    encrypted_message = caesar_cipher(message, shift);
+    
+    %Note- Display the results
+    fprintf('Original message: %s\n', message);
+    fprintf('Encrypted message: %s\n', encrypted_message);
+end

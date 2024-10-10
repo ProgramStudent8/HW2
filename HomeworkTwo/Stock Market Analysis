@@ -1,0 +1,82 @@
+%Author Name: Eric Ciccarelli
+%Email: ciccar47@rowan.edu
+%Course: MATLAB Programming - Fall 2024
+%Assignment: Stock Market Analysis
+%Date October 11th, 2024
+
+
+%Stock Market Analysis
+
+%a) Create stock data and save to 'stock_data.txt'
+%Note- I created stock prices for 30 days
+stock_prices = [
+    100.50; 102.75; 101.25; 103.00; 104.50; 
+    105.25; 105.75; 104.00; 106.00; 107.50; 
+    108.25; 107.00; 109.00; 110.00; 109.75; 
+    111.50; 112.00; 111.25; 113.00; 114.50; 
+    115.00; 114.00; 116.25; 115.50; 117.00; 
+    118.00; 117.75; 119.00; 120.50; 121.00; 
+    120.00
+];
+
+%Note- Open the file to write
+fileID = fopen('stock_data.txt', 'w');
+%Note- Write each price to the file
+fprintf(fileID, '%.2f\n', stock_prices);
+%Note- Close the file
+fclose(fileID);
+
+
+
+%b) Write a Matlab script that
+%Note- Read stock data from 'stock_data.txt'
+stock_prices = load('stock_data.txt');
+
+%Note- These are formulas to calculate statistics
+average_price = mean(stock_prices);
+highest_price = max(stock_prices);
+lowest_price = min(stock_prices);
+
+%Note- This counts the days when the stock price went up
+price_increases = 0; % Initialize counter
+for i = 2:length(stock_prices)
+    if stock_prices(i) > stock_prices(i - 1)
+        price_increases = price_increases + 1;
+    end
+end
+
+%Note- I printed the results
+fprintf('Average Closing Price: %.2f\n', average_price);
+fprintf('Highest Closing Price: %.2f\n', highest_price);
+fprintf('Lowest Closing Price: %.2f\n', lowest_price);
+fprintf('Number of Days Price Increased: %d\n', price_increases);
+
+%Note- I created a line plot
+figure; % Create a new figure
+plot(stock_prices, 'b-o'); % Plot daily closing prices
+hold on; % Keep the plot
+yline(average_price, 'r--', 'Average Price'); % Add average line
+yline(highest_price, 'g--', 'Highest Price'); % Add highest line
+yline(lowest_price, 'm--', 'Lowest Price'); % Add lowest line
+hold off; % Release the plot
+
+%Note- Add labels and title
+xlabel('Day'); 
+ylabel('Closing Price');
+title('Daily Closing Prices');
+legend('Closing Prices', 'Average Price', 'Highest Price', 'Lowest Price');
+grid on; % Add a grid
+
+%Note- Save the plot as an image file
+saveas(gcf, 'stock_analysis.png');
+
+%Note- Write summary to 'stock_summary.txt'
+fileID = fopen('stock_summary.txt', 'w');
+fprintf(fileID, 'Average Closing Price: %.2f\n', average_price);
+fprintf(fileID, 'Highest Closing Price: %.2f\n', highest_price);
+fprintf(fileID, 'Lowest Closing Price: %.2f\n', lowest_price);
+fprintf(fileID, 'Number of Days Price Increased: %d\n', price_increases);
+fclose(fileID);
+
+% Display message
+disp('Stock analysis complete. Results saved.');
