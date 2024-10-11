@@ -22,12 +22,17 @@ population_data = [population; growth_rate];
 %Note- I combined population and growth rates
 
 
-%d) Print the formatted table
+%d) Print the formatted table     
+disp('Year    Population    Growth Rate (%)');
+disp('-------------------------------------');
+
 for year = 1:length(population)
     if year == 1
-        fprintf('%d\t%d\t\tN/A\n', year, population(year));
+        % For the first year, there is no growth rate, so print 'N/A'
+        fprintf('%-7d %-12d N/A\n', year, population(year));
     else
-        fprintf('%d\t%d\t\t%.2f\n', year, population(year), growth_rate(year));
+        % For other years, print the population and growth rate
+        fprintf('%-7d %-12d %.2f\n', year, population(year), growth_rate(year));
     end
 end
 % Note- Print the first year's data with "N/A" for growth rate, then the
